@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% load cart %}
+<div class="row d-flex justify-content-center" style="margin-top:100px;">
+<div class="container text-center">
+{% if not products %}
+<h1 class="text-center mb-5">Your cart is empty</h1>
+{% else %}
+<h1 class="text-center mb-5">Your Cart</h1>
+{% include 'cart-columns.html' %}
+{% for product in products %}
+<div class="row mb-3">
+<div class="col-md-2 font-weight-bold my-auto">
+{{forloop.counter}}
+</div>
+<div class="col-md-2">
+<img src="{{product.image.url}}" alt="product" style="height:100px;width:100px;" class="rounded-circle img-fluid mask waves-effect waves-light rgba-white-slight">
+</div>
+<div class="col-md-2 my-auto">
+{{product.name}}
+</div>
+<div class="col-md-2 my-auto font-weight-bold">
+{{product.price|currency}}
+</div>
+<div class="col-md-2 my-auto font-weight-bold">
+{{product|cart_quantity:request.session.cart}}
+</div>
+<div class="col-md-2 my-auto font-weight-bold">
+{{product|product_price_subtotal:request.session.cart|currency}}
+</div>
+</div>
+{% endfor %}
+<div class="row">
+<div class="col-md-4 offset-md-8 my__border p-3 mb-4">
+<h5 class="font-weight-bold">Total Cart Items : {{request.session.cart|total_cart_items}}</h5>
+<h5 class="font-weight-bold">Total Cart Price : {{products|total_cart_price:request.session.cart|currency}}</h5>
+<button class="btn btn-rounded btn-success"  href="#" data-toggle="modal" data-target="#orangeModalSubscription">
+Checkout
+</button>
+</div>
+</div>
+{% endif %}
+</div>
+</div>
+{% include 'modal.html' %}
+{% endblock content %}

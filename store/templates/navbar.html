@@ -1,0 +1,60 @@
+{% load static %}
+<!--Navbar -->
+<nav class="mb-1 navbar fixed-top navbar-expand-lg navbar-dark info-color">
+  <a class="navbar-brand" href="/">Ecommerce Shop</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+    aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+    <ul class="navbar-nav ml-auto">
+      {% if request.session.customer_id %}
+            <li class="nav-item">
+        <a class="nav-link" href="/cart">
+        <div class="link__icon">
+        {% if not req.session.cart.keys == 0  %}
+        <span class="badge badge-danger my__badge">{{request.session.cart.keys|length}}</span>
+        {% endif %}
+          <i class="material-icons mr-2">shopping_cart</i><span>Cart</span>
+          </div>
+        </a>
+      </li>
+            <li class="nav-item">
+        <a class="nav-link" href="/orders">
+        <div class="link__icon">
+          <i class="material-icons mr-2">receipt</i><span>Orders</span>
+          </div>
+        </a>
+      </li>
+                  <li class="nav-item">
+        <a class="nav-link" href="/logout">
+        <div class="link__icon">
+          <i class="material-icons mr-2">exit_to_app</i><span>Logout</span>
+          </div>
+          </a>
+      </li>
+      {% else %}
+                  <li class="nav-item">
+        <a class="nav-link" href="/cart">
+        <div class="link__icon">
+          <i class="material-icons mr-2">shopping_cart</i><span>Cart</span>
+          </div>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/login">
+          <div class="link__icon">
+          <i class="material-icons mr-2">vpn_key</i><span>Login</span>
+          </div></a>
+      </li>
+            <li class="nav-item">
+        <a class="nav-link" href="/register">
+        <div class="link__icon">
+          <i class="material-icons mr-2">how_to_reg</i><span>Register</span>
+          </div>
+          </a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>

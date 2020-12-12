@@ -1,0 +1,39 @@
+<div class="modal fade" id="orangeModalSubscription" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-info" role="document">
+      <form action="/checkout" method="POST" >
+      {% csrf_token %}
+          <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header text-center">
+        <h4 class="modal-title white-text w-100 font-weight-bold py-2">Checkout Order</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <div class="md-form mb-5">
+          <i class="material-icons prefix grey-text">home</i>
+          <input type="text" id="form3" name="address" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="form3">Your address</label>
+        </div>
+
+        <div class="md-form">
+          <i class="material-icons prefix grey-text">perm_phone_msg</i>
+          <input type="text" id="form2" name="phone" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="form2">Your phone</label>
+        </div>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <button type="submit" class="btn btn-outline-info waves-effect">Checkout<i class="fas fa-paper-plane-o ml-1"></i></button>
+      </div>
+    </div>
+    <!--/.Content-->
+      </form>
+  </div>
+</div>

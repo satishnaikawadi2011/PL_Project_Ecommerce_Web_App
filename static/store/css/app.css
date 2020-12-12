@@ -1,0 +1,47 @@
+.my__image {
+	height: 300px;
+}
+
+.my__nav__logo {
+	margin-left: 30px;
+}
+
+.mr-2 {
+	margin-right: 5px;
+}
+
+.my__form {
+	margin-top: 50vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.my__border {
+	border: 1px solid black;
+}
+
+.link__icon {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+
+.my__badge {
+	position: absolute;
+	left: 0px;
+	bottom: 17px;
+}
+
+button {
+	border: none;
+	cursor: pointer;
+	outline: none;
+}
+
+button:focus {
+	border: none;
+	cursor: pointer;
+	outline: none;
+}

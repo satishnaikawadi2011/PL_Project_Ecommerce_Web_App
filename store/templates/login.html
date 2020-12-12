@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="row d-flex justify-content-center" style="margin-top:100px;">
+<!-- Default form login -->
+<form class="col-md-4 text-center border border-light p-5" action="/login" method="POST">
+    {% csrf_token %}
+    <p class="h4 mb-4">Sign in</p>
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+ {{error}}
+</div>
+{% endif %}
+    <!-- Email -->
+    <input type="email" value="{{email}}" id="email" name="email" class="form-control mb-4" placeholder="E-mail">
+
+    <!-- Password -->
+    <input type="password" id="password" name="password" class="form-control mb-4" placeholder="Password">
+
+
+    <!-- Sign in button -->
+    <button class="btn btn-info btn-block my-4" type="submit">Sign in</button>
+
+    <!-- Register -->
+    <p>Not a customer?
+        <a href="/register">Register</a>
+    </p>
+
+</form>
+</div> 
+{% endblock content %}

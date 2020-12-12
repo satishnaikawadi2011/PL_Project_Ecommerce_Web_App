@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% load cart %}
+<div class="row d-flex justify-content-center" style="margin-top:100px;">
+<div class="col-md-3 fixed-top" id="category" style="margin-top:100px;">
+   <ul class="list-group">
+           <a href="/">
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+    All Products
+  </li>
+        </a>
+    {% for category in categories %}
+        <a href="/?category={{category.id}}">
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+    {{category.name}}
+  </li>
+        </a>
+        </ul>
+    {% endfor %}
+      </div>
+<div class="col-md-9 offset-md-3">
+<div class="row">
+    {% for product in products %}
+      <div class="col-sm-10 col-md-4">
+            <!-- Card Dark -->
+<div id={{product.id}} class="card mb-3">
+  <!-- Card image -->
+  <div class="view overlay">
+    <img class="card-img-top img-fluid my__image" src="{{product.image.url}}"
+      alt="Card image cap">
+    <a>
+      <div class="mask rgba-white-slight"></div>
+    </a>
+  </div>
+  <!-- Card content -->
+  <div class="card-body elegant-color white-text">
+    <h4 id="price" class="text-center">
+      {{product.price|currency}}
+    </h4>
+    <h4 class="card-title text-center">{{product.name}}</h4>
+    <span class="d-flex justify-content-center"><a href={% url 'details' product.id %} type="button" class="btn btn-outline-info btn-rounded waves-effect">More Details</a></span>
+  </div>
+      <div id="footer-{{product.id}}" class="card-footer row stylish-color white-text text-center no-gutters p-0">
+  {% if product|is_in_cart:request.session.cart %}
+      
+      <button onClick="decreament({{product.id}});" data-id="{{product.id}}" id="decreament-{{product.id}}" class="btn btn-block btn-info col-2">-</button>
+      <div id="quantity" class="col text-center mt-2"><span id="qnt-{{product.id}}">{{product|cart_quantity:request.session.cart}}</span> in cart</div>
+      <button onClick="increament({{product.id}});" data-id="{{product.id}}" id="increament-{{product.id}}" class="btn btn-block btn-info col-2">+</button>
+  {% else %}
+         <button onclick="clicking({{product.id}});"  id="cartBtn" class="float-right btn-floating btn-lg btn-default text-center" data-toggle="tooltip" data-placement="top"
+  title="Add to cart"><i class="material-icons">add_shopping_cart</i></button>
+  <h5 class="white-text ml-5 mt-3">Add To Cart</h5>
+  {% endif %}
+    </div>
+</div>
+      </div>
+    {% endfor %}
+    </div>
+</div>
+
+</div>
+<script>
+   function clicking(id){
+       var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+     console.log(this.responseText)
+     location.reload()
+     location.replace(`http://127.0.0.1:8000/#${id}`)
+    }
+  };
+  let url = 'http://127.0.0.1:8000/add_to_cart?id='+id
+  xhttp.open("GET",url,true);
+  xhttp.send();
+    }
+
+
+
+    function increament(id){
+      console.log("successfull")
+let quantity = document.getElementById('qnt-'+id)
+      console.log(id)
+      var xhttp = new XMLHttpRequest();
+       xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+     console.log(JSON.parse(this.responseText).quantity)
+     quantity.innerHTML = JSON.parse(this.responseText).quantity
+        }
+      };
+      let url = 'http://127.0.0.1:8000/increament_cart_quantity?id='+id
+      xhttp.open("GET",url,true);
+      xhttp.send();
+    }
+
+    function decreament(id){
+     let quantity = document.getElementById('qnt-'+id)
+      console.log(id)
+      var xhttp = new XMLHttpRequest();
+       xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+     console.log(JSON.parse(this.responseText).quantity)
+     quantity.innerHTML = JSON.parse(this.responseText).quantity
+     if(JSON.parse(this.responseText).quantity === 0){
+       location.reload()
+       location.replace(`http://127.0.0.1:8000/#${id}`)
+     }
+        }
+      };
+      let url = 'http://127.0.0.1:8000/decreament_cart_quantity?id='+id
+      xhttp.open("GET",url,true);
+      xhttp.send();
+  };
+
+</script>
+{% endblock content %}

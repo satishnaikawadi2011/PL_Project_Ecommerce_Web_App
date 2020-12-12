@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="row d-flex justify-content-center" style="margin-top:100px;">
+<!-- Default form register -->
+<form class="text-center border border-light p-5" action="/register" method="POST">
+    {% csrf_token %}
+    <p class="h4 mb-4">Sign up</p>
+{% if error %}
+        <div class="alert alert-danger" role="alert">
+ {{error}}
+</div>
+{% endif %}
+    <div class="form-row mb-4">
+        <div class="col">
+            <!-- First name -->
+            <input type="text" value="{{values.first_name}}" id="first_name" name="first_name" class="form-control" placeholder="First name">
+        </div>
+        <div class="col">
+            <!-- Last name -->
+            <input type="text" id="last_name" name="last_name" value="{{values.last_name}}" class="form-control" placeholder="Last name">
+        </div>
+    </div>
+
+    <!-- E-mail -->
+    <input type="email" id="email" name="email" value="{{values.email}}" class="form-control mb-4" placeholder="E-mail">
+
+    <!-- Password -->
+    <input type="password" id="password" name="password" value="{{values.password}}" class="form-control" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
+    <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+        At least 6 characters
+    </small>
+
+    <!-- Phone number -->
+    <input type="text" id="phone" name="phone" value="{{values.phone}}" class="form-control" placeholder="Phone number" aria-describedby="defaultRegisterFormPhoneHelpBlock">
+
+    <!-- Sign up button -->
+    <input class="btn btn-info my-4 btn-block" type="submit" value="Sign Up"></input>
+
+    <!-- Social register -->
+
+    <!-- Terms of service -->
+    <p>By clicking
+        <em>Sign up</em> you agree to our
+        <a href="" target="_blank">terms of service</a>
+
+</form>
+</div>
+{% endblock content %}

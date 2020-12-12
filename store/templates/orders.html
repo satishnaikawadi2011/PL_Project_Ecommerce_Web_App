@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load cart %}
+{% block content %}
+<div class="row d-flex justify-content-center" style="margin-top:100px;">
+<div class="container text-center">
+{% if not orders  %}
+<h1 class="text-center mb-5">Your have no orders to show.</h1>
+{% else %}
+<h1 class="text-center mb-5">Your Orders</h1>
+{% include 'order-columns.html' %}
+{% for order in orders %}
+<div class="row mb-3">
+<div class="col-md-1 font-weight-bold my-auto">
+{{forloop.counter}}
+</div>
+<div class="col-md-2">
+<img src="{{order.product.image.url}}" alt="product" style="height:100px;width:100px;" class="rounded-circle img-fluid mask waves-effect waves-light rgba-white-slight">
+</div>
+<div class="col-md-2 my-auto">
+{{order.product.name}}
+</div>
+<div class="col-md-1 my-auto font-weight-bold">
+{{order.price|currency}}
+</div>
+<div class="col-md-1 my-auto font-weight-bold">
+{{order.quantity}}
+</div>
+<div class="col-md-1 my-auto font-weight-bold">
+{{order.price|multiply:order.quantity|currency}}
+</div>
+<div class="col-md-2 my-auto font-weight-bold">
+{{order.date}}
+</div>
+<div class="col-md-2 my-auto font-weight-bold">
+{% if order.status %}
+<div class="badge badge-success">
+Completed
+</div>
+{% else %}
+<div class="badge badge-warning">
+Pending
+</div>
+{% endif %}
+</div>
+</div>
+{% endfor %}
+{% endif %}
+</div>
+</div>
+{% endblock content %}
