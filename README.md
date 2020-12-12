@@ -58,4 +58,4 @@ swaroop@gmail.com (Customer)
 
 - Adding payment gateway
 - Add functionality so that customers able to sell their products on this platform
-- Convert this backend to REST API with DRS (Djangi REST Framework) package.
+- Convert this backend to REST API with DRS (Django REST Framework) package.
