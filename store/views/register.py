@@ -28,8 +28,7 @@ class Register(View):
             error_message = "Enter a valid phone number!"
         elif customer.isExists():
             error_message = "Email address is already registered , login instead!"
-        elif self.isValidEmail(customer.email):
-            print(self.isValidEmail(customer.email))
+        elif not self.isValidEmail(customer.email):
             error_message = "Please enter a valid email address!"
         return error_message
 

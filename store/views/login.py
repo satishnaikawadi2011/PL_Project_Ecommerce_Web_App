@@ -5,7 +5,7 @@ from ..models.product import Product
 from ..models.category import Category
 from ..models.customer import Customer
 from django.views import View
-
+import re
 
 
 class Login(View):
@@ -42,7 +42,16 @@ class Login(View):
             error_message = "No customer found with given email address !" 
         elif not check_password(password,customer.password):
             error_message = "Invalid credentials , try again !"
+        elif not self.isValidEmail(customer.email):
+            error_message = "Please enter a valid email address!"
         return error_message
+
+
+    def isValidEmail(self,email):
+        regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'  
+        if(re.search(regex,email)):  
+            return True
+        return False
 
 def logout(request):
     request.session.clear()
